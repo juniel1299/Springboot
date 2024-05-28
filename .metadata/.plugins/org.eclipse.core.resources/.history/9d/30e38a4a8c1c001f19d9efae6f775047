@@ -1,0 +1,3 @@
+spring.application.name=boot-hello
+
+server.port=8090

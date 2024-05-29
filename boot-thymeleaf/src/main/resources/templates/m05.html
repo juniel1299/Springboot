@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
+</head>
+<body>
+<h1>Content</h1>
+<!--/*
+  Thymeleaf Text
+  1. th:text
+    - escaped text
+    - innerText
+
+  2. th:utext
+    - unescaped text
+    - innerHTML
+
+    인라인 출력
+      - th:inline="text" (기본값)
+      - th:inline="javascript"
+      - th:inline + [[]] //escaped text
+      - th:inline + [()] //unescaped text
+
+*/-->
+<div th:text="${txt1}"></div>
+<div th:utext="${txt1}"></div>
+<hr>
+<div th:text="${txt2}"></div>
+<div th:utext="${txt2}"></div>
+
+<hr>
+
+<div th:text="${txt1}"></div>
+<div th:inline="text">[[${txt1}]]</div>
+<div>[[${txt1}]]</div>
+
+<div th:utext="${txt2}"></div>
+<div th:inline="text">[[${txt2}]]</div>
+<div th:inline="text">[(${txt2})]</div>
+<div>[(${txt2})]</div>
+
+<hr>
+
+<!-- PCDATA 조작하는 방법 -->
+<div>이름: 홍길동</div>
+<div>이름: <span th:text="${name}"></span></div> <!--**-->
+<div th:text="'이름: ' +  ${name}"></div>
+<div th:text="|이름: ${name}|"></div> <!--*-->
+<div th:inline="text">이름: [[${name}]]</div>
+<div>이름: [[${name}]]</div> <!--**-->
+
+
+</body>
+</html>

@@ -15,8 +15,19 @@
         select name from tblAddress where rownum = 1
     </select>
 
-    <select id="get" resultType="com.test.bootthymeleaf.dto.AddressDTO">
+  <!--  <select id="get" resultType="com.test.bootthymeleaf.dto.AddressDTO">
         select * from tblAddress where rownum = 1
     </select>
+-->
+    <select id="names" resultType="String">
+        select name from tblAddress
+    </select>
+
+    <select id="get" resultType="com.test.bootthymeleaf.dto.AddressDTO">
+        select * from tblAddress
+    </select>
+
+
+
 
 </mapper>

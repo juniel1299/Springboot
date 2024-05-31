@@ -14,7 +14,7 @@ spring:
         database: oracle
         generate-ddl: false
         hibernate:
-            ddl-auto: create
+            ddl-auto: none
             naming:
                 physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         show-sql: true
@@ -22,8 +22,11 @@ spring:
             hibernate:
                 format_sql: true #이쁘게
 
-
-
+#Pageable 기본값
+    data:
+        web:
+            pageable:
+                default-page-size: 10
 server:
     port: 8090
 

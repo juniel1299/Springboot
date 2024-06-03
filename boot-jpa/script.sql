@@ -501,7 +501,7 @@ insert into tblMemo values (100, '최근에 들은 소식 있어? 콩콩~', sysd
 commit;
 
 select count(*) from tblAddress; --50
-select count(*) from tblInfo; --50
+select count(*) from tblInfo; --50 
 select count(*) from tblMemo; --100
 
 

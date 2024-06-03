@@ -28,6 +28,10 @@ ORM
 
 
 
+추가 생성
+- com.test.bootjpa.entity >
+
+
 
 
 

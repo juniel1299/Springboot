@@ -84,5 +84,77 @@
     </tr>
 </table>
 
+
+
+<table th:if="${joinList != null}">
+    <tr>
+        <th>번호</th>
+        <th>이름</th>
+        <th>나이</th>
+        <th>주소</th>
+        <th>성별</th>
+        <th>메모</th>
+    </tr>
+    <tr th:each="address : ${joinList}">
+        <td th:text="${address.seq}"></td>
+        <td th:text="${address.name}"></td>
+        <td th:text="${address.age}"></td>
+        <td th:text="${address.address}"></td>
+        <td th:text="${address.gender}"></td>
+        <td>
+            <ul>
+                <li th:each="memo : ${address.memo}" th:text="${memo.memo}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<table th:if="${customList != null}">
+    <tr>
+
+        <th>이름</th>
+        <th>나이</th>
+    </tr>
+    <tr th:each="tuple : ${customList}">
+        <td th:text="${tuple.get(0,String)}"></td>
+        <td th:text="${tuple.get(1,Integer)}"></td>
+    </tr>
+</table>
+
+
+<table th:if="${addressDTOList != null}">
+    <tr>
+        <th>이름</th>
+        <th>주소</th>
+    </tr>
+    <tr th:each="addressDTO : ${addressDTOList}">
+        <td th:text="${address.name}"></td>
+        <td th:text="${address.address}"></td>
+    </tr>
+</table>
+<table th:if="${addressDTOList != null}">
+    <tr>
+        <th>이름</th>
+        <th>주소</th>
+    </tr>
+    <tr th:each="addressDTO : ${addressDTOList}">
+        <td th:text="${address.name}"></td>
+        <td th:text="${address.address}"></td>
+    </tr>
+</table>
+
+
+<table th:if="${addressTuple != null}">
+    <tr>
+        <th>성별</th>
+        <th>인원 수</th>
+        <th>평균 나이</th>
+    </tr>
+    <tr th:each="address : ${addressTuple}">
+        <td th:text="${address.get(0,String)}"></td>
+        <td th:text="${address.get(1,Integer)}"></td>
+        <td th:text="${address.get(2,Double)}"></td>
+    </tr>
+</table>
 </body>
 </html>

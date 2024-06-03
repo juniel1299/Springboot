@@ -82,7 +82,8 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
 
     //JPQL
-    @Query("select a.name from Address as a")
+    //@Query("select a.name from Address as a")
+    @Query(value = "select name from tblAddress", nativeQuery = true)
     List<String> listName();
 
     // All 방식 ( * 와일드카드가 없으므로 alias 이름을 그냥 부르면 다 불러와짐)
@@ -98,6 +99,9 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
     @Query("select new com.test.bootjpa.dto.AddressDTO(a.seq,a.name,a.age,a.address,a.gender,substr(a.address,1,6),year(current_date) - a.age) from Address a")
     List<AddressDTO> listCustomAll();
+
+    Address findAddressByName(String name);
+
 
     //Optional<Address> findByGender(String gender);
 

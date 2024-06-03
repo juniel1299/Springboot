@@ -17,6 +17,11 @@ public class AddressDTO {
     private String address;
     private String gender;
 
+    private AddressDTO(String name,String address){
+        this.name = name;
+        this.address = address;
+    }
+
     //JPQL 멤버
     private String city;
     private int birth;

@@ -29,5 +29,25 @@
     </tr>
 </table>
 
+<table th:if="${info != null}">
+    <tr>
+        <th>번호</th>
+        <th>학교</th>
+        <th>국가</th>
+        <th>이름</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>주소</th>
+    </tr>
+    <tr>
+        <td th:text="${info.seq}"></td>
+        <td th:text="${info.school}"></td>
+        <td th:text="${info.country}"></td>
+        <td th:text="${info.address.name}"></td>
+        <td th:text="${info.address.age}"></td>
+        <td th:text="${info.address.gender}"></td>
+        <td th:text="${info.address.address}"></td>
+    </tr>
+</table>
 </body>
 </html>

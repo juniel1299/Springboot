@@ -1,13 +1,13 @@
 spring:
     application:
         name: boot-security
+
     # DB 설정
     datasource:
         driver-class-name: oracle.jdbc.OracleDriver
         url: jdbc:oracle:thin:@localhost:1521/xe
         username: springboot
         password: java1234
-
 
     # JPA 설정
     jpa:
@@ -22,9 +22,6 @@ spring:
             hibernate:
                 format_sql: true #이쁘게
 
+
 server:
     port: 8090
-
-
-
-

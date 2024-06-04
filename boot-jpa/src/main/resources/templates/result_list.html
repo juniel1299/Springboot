@@ -85,7 +85,6 @@
 </table>
 
 
-
 <table th:if="${joinList != null}">
     <tr>
         <th>번호</th>
@@ -109,15 +108,15 @@
     </tr>
 </table>
 
+
 <table th:if="${customList != null}">
     <tr>
-
         <th>이름</th>
         <th>나이</th>
     </tr>
     <tr th:each="tuple : ${customList}">
-        <td th:text="${tuple.get(0,String)}"></td>
-        <td th:text="${tuple.get(1,Integer)}"></td>
+        <td th:text="${tuple.get(0, String)}"></td>
+        <td th:text="${tuple.get(1, Integer)}"></td>
     </tr>
 </table>
 
@@ -127,17 +126,7 @@
         <th>이름</th>
         <th>주소</th>
     </tr>
-    <tr th:each="addressDTO : ${addressDTOList}">
-        <td th:text="${address.name}"></td>
-        <td th:text="${address.address}"></td>
-    </tr>
-</table>
-<table th:if="${addressDTOList != null}">
-    <tr>
-        <th>이름</th>
-        <th>주소</th>
-    </tr>
-    <tr th:each="addressDTO : ${addressDTOList}">
+    <tr th:each="address : ${addressDTOList}">
         <td th:text="${address.name}"></td>
         <td th:text="${address.address}"></td>
     </tr>
@@ -147,14 +136,87 @@
 <table th:if="${addressTuple != null}">
     <tr>
         <th>성별</th>
-        <th>인원 수</th>
-        <th>평균 나이</th>
+        <th>인원수</th>
+        <th>평균나이</th>
     </tr>
     <tr th:each="address : ${addressTuple}">
+        <td th:text="${address.get(0, String)}"></td>
+        <td th:text="${address.get(1, Integer)}"></td>
+        <td th:text="${address.get(2, Double)}"></td>
+    </tr>
+</table>
+
+
+
+<table th:if="${addressInfoList != null}">
+    <tr>
+        <th>번호</th>
+        <th>이름</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>주소</th>
+        <th>학교</th>
+        <th>지역</th>
+    </tr>
+    <tr th:each="info : ${addressInfoList}">
+        <td th:text="${info.address.seq}"></td>
+        <td th:text="${info.address.name}"></td>
+        <td th:text="${info.address.age}"></td>
+        <td th:text="${info.address.gender}"></td>
+        <td th:text="${info.address.address}"></td>
+        <td th:text="${info.school}"></td>
+        <td th:text="${info.country}"></td>
+    </tr>
+</table>
+
+
+<table th:if="${addressFullList != null}">
+    <tr>
+        <th>번호</th>
+        <th>이름</th>
+        <th>나이</th>
+        <th>주소</th>
+        <th>성별</th>
+        <th>학교</th>
+        <th>국가</th>
+        <th>메모</th>
+    </tr>
+    <tr th:each="info : ${addressFullList}">
+        <td th:text="${info.address.seq}"></td>
+        <td th:text="${info.address.name}"></td>
+        <td th:text="${info.address.age}"></td>
+        <td th:text="${info.address.address}"></td>
+        <td th:text="${info.address.gender}"></td>
+        <td th:text="${info.school}"></td>
+        <td th:text="${info.country}"></td>
+        <td>
+            <ul>
+                <li th:each="memo : ${info.address.memo}" th:text="${memo.memo}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+
+<table th:if="${addressAgeList != null}">
+    <tr>
+        <th>이름</th>
+        <th>나이</th>
+        <th>평균나이</th>
+    </tr>
+    <tr th:each="address : ${addressAgeList}">
         <td th:text="${address.get(0,String)}"></td>
         <td th:text="${address.get(1,Integer)}"></td>
         <td th:text="${address.get(2,Double)}"></td>
     </tr>
 </table>
+
 </body>
 </html>
+
+
+
+
+
+
+

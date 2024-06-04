@@ -24,18 +24,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AddressController {
 
+
     private final AddressRepository addressRepository;
     private final InfoRepository infoRepository;
     private final MemoRepository memoRepository;
     private final CustomAddressRepository customAddressRepository;
 
+
     @GetMapping("/m01.do")
     public String m01(Model model) {
 
-        //1. Query Method > 정해진 키워드 + 메서드 명 = JPQL > SQL
+        //1. Query Method > 정해진 키워드 + 메서드명 = JPQL > SQL
         //2. JPQL > 직접 SQL 작성 > 엔티티를 대상하는 SQL
-        //3. Query DSL >
-
+        //3. Query DSL
 
 
         //[C]RUD
@@ -314,146 +315,130 @@ public class AddressController {
 
         //List<Address> addressList = addressRepository.findByGenderOrderByNameAsc("m");
         //List<Address> addressList = addressRepository.findByGenderOrderByNameDesc("m");
-
-//        List<Address> addressList = addressRepository.findByGenderOrderByAgeDescNameAsc("m");
-
-//        List<Address> addressList = addressRepository.findAll();
-//        List<Address> addressList = addressRepository.findAllByOrderBySeqDesc();
+        //List<Address> addressList = addressRepository.findByGenderOrderByAgeDescNameAsc("m");
 
 
-//        List<Address> addressList = addressRepository.findAll(Sort.by("age"));
+        //List<Address> addressList = addressRepository.findAll();
 
-//        List<Address> addressList = addressRepository.findAll(Sort.by(Sort.Direction.DESC,"age"));
+        //List<Address> addressList = addressRepository.findAllByOrderBySeqDesc();
 
-//        List<Address> addressList = addressRepository.findAll(Sort.by(Sort.Direction.DESC,"age","name"));// 다중 정렬
+        //List<Address> addressList = addressRepository.findAll(Sort.by("age"));
 
+        //List<Address> addressList = addressRepository.findAll(Sort.by(Sort.Direction.DESC, "age"));
 
+        //List<Address> addressList = addressRepository.findAll(Sort.by("age", "name")); //다중 정렬
 
-//        List<Address> addressList = addressRepository.findAll(Sort.by(Sort.Order.desc("age"),
-//                Sort.Order.desc("name")));
+//        List<Address> addressList = addressRepository.findAll(Sort.by(
+//                Sort.Order.desc("age"),
+//                Sort.Order.desc("name")
+//        ));
 
+        //List<Address> addressList = addressRepository.findByGender("m", Sort.by("age"));
 
+        List<Address> addressList = addressRepository.findByGender("f", Sort.by("age"));
 
-
-
-
-
-
-// 순서 바뀌어도 됨
-        List<Address> addressList =  addressRepository.findByGender("m", Sort.by("age"));
-//        List<Address> addressList =  addressRepository.findByGender1(Sort.by("age"),"m");
 
         model.addAttribute("addressList", addressList);
 
-
-
         return "result_list";
     }
+
 
     @GetMapping("/m15.do")
     public String m15(Model model) {
 
-
-        // - select * from tblAddress where 조건
+        //- select * from tblAddress where 조건
 
         //일부 컬럼 가져오기
         //- 인터페이스 사용
-        // com.test.bootjpa.entity > AddressNameAgeMapping(I)
+        //- com.test.bootjpa.entity > AddressNameAgeMapping.java(I)
 
+        List<AddressNameAgeMapping> addressSubList = addressRepository.findAllByGender("f");
 
-        // 기존 Address 쓰면 다 가져오기 때문에 인터페이스를 통해 가져오자
-       List<AddressNameAgeMapping> addressSubList = addressRepository.findAllByGender("f");
+        System.out.println(addressSubList);
 
-       model.addAttribute("addressSubList", addressSubList);
-
+        model.addAttribute("addressSubList", addressSubList);
 
         return "result_list";
     }
+
 
     @GetMapping("/m16.do")
     public String m16(Model model) {
 
         //JPQL
-        // - SQL 직접 생성
-        // - 메서드명은 자유롭게 작성한다.
-        // - DB 대상으로 하는 SQL이 아님
-        // - 엔티티를 대상으로 하는 SQL 문이다 .
-        // - 엔티티에 반드시 별칭을 사용해야 한다. (as는 생략 가능)
-        // - 컬럼명 앞에 반드시 엔티티를 표현해야 한다. (select name 안 됨 > select a.name 이렇게 해야 함)
-        // - ANSI의 많은 구문을 그대로 지원한다.
-        // - 많은 함수를 그대로 제공한다. > JPQL 자체 함수 일부 제공
-
-//        List<String> names =  addressRepository.listName();
-
-//        model.addAttribute("names",names);
+        //- SQL 직접 생성
+        //- 메서드명은 자유롭게 작성한다.
+        //- DB 대상으로 하는 SQL(X)
+        //- 엔티티를 대상으로 하는 SQL(O)
+        //- 엔티티에 반드시 별칭을 사용해야 한다.(as 생략 가능)
+        //- 컬럼명 앞에 반드시 엔티티를 표현해야 한다.(select name > select a.name)
+        //- ANSI의 많은 구문을 그대로 지원한다.
+        //- 많은 함수를 그대로 제공한다. > JPQL 자체 함수 일부 제공
 
 
-//       List<Address> addressList = addressRepository.listAll(); //findAll()
+        //List<String> names = addressRepository.listName();
+        //model.addAttribute("names", names);
 
+        //List<Address> addressList =  addressRepository.listAll(); //findAll()
 
-//        List<Address> addressList = addressRepository.listAll("m");
+        //List<Address> addressList =  addressRepository.listAll("m");
 
-//        List<Address> addressList = addressRepository.listAll(5);
+        //List<Address> addressList =  addressRepository.listAll(5);
 
+        //AddressDTO dto = new AddressDTO();
+        //dto.setGender("f"); // =
+        //dto.setAddress("강남구"); // like
 
-//        AddressDTO dto = new AddressDTO();
-//        dto.setGender("f"); // 동등
-//        dto.setAddress("강남구"); //라이크 비교
-
-//        List<Address> addressList = addressRepository.listAll(dto);
-
-
-
-//        model.addAttribute("addressList", addressList);
+        //List<Address> addressList =  addressRepository.listAll(dto);
+        //model.addAttribute("addressList", addressList);
 
 
         List<AddressDTO> customAddressList = addressRepository.listCustomAll();
 
         model.addAttribute("customAddressList", customAddressList);
 
-
         return "result_list";
     }
-
 
     @GetMapping("/m17.do")
     public String m17(Model model) {
 
         //페이징
+        PageRequest pageRequest = PageRequest.of(0, 10);
 
-        //PageRequest
-
-    PageRequest pageRequest = PageRequest.of(0,10);
-
-    Page<Address> addressList =  addressRepository.findAll(pageRequest);
+        Page<Address> addressList = addressRepository.findAll(pageRequest);
 
 
-    //페이지 정보
-        System.out.println(addressList.getNumber()); // 페이지 번호 0
-        System.out.println(addressList.getNumberOfElements()); // 가져온 엔티티 수 10
-        System.out.println(addressList.getTotalElements()); // 총 게시물 수 50
-        System.out.println(addressList.getTotalPages()); // 총 페이지 수 5
-        System.out.println(addressList.getSize()); // 한 페이지 당 엔티티 수 10
+        //페이지 정보
+        System.out.println(addressList.getNumber()); //0 > 페이지 번호
+        System.out.println(addressList.getNumberOfElements()); //10 > 가져온 엔티티 수
+        System.out.println(addressList.getTotalElements()); //50 > 총 엔티티 수
+        System.out.println(addressList.getTotalPages()); //5 > 총 페이지 수
+        System.out.println(addressList.getSize()); //10 > 한 페이지당 엔티티 수
 
-    model.addAttribute("addressList", addressList);
+
+        model.addAttribute("addressList", addressList);
+
         return "result_list";
     }
 
     @GetMapping("/m18.do")
-    public String m18(Model model, @RequestParam(name = "page",required = false, defaultValue = "1") Integer page) {
+    public String m18(Model model, @RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
 
         page = page - 1;
 
-        PageRequest pageRequest = PageRequest.of(page,10,Sort.by("name"));
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("name"));
 
-        Page<Address> addressList =  addressRepository.findAll(pageRequest);
+        Page<Address> addressList = addressRepository.findAll(pageRequest);
+
 
         StringBuilder sb = new StringBuilder();
 
-        for(int i=0; i<addressList.getTotalPages(); i++){
+        for (int i=0; i<addressList.getTotalPages(); i++) {
             sb.append("""
                     <a href="/m18.do?page=%d">%d</a>
-                    """.formatted(i+1,i+1));
+                    """.formatted(i + 1, i + 1));
         }
 
         model.addAttribute("addressList", addressList);
@@ -465,9 +450,18 @@ public class AddressController {
     @GetMapping("/m19.do")
     public String m19(Model model, Pageable pageable) {
 
-        //m19.do?page=0 << 예약어가 됨 pageable 쓰면
+        //m19.do?page=0
+        //m19.do?page=1
+        //m19.do?page=2
+
         //m19.do?page=0&size=10
-        //http://localhost:8090/m19.do?page=0&size10&sort=name.desc
+        //m19.do?page=1&size=10
+        //m19.do?page=2&size=10
+
+        //m19.do?page=0&size=10&sort=name.asc
+        //m19.do?page=1&size=10&sort=name.asc
+        //m19.do?page=2&size=10&sort=name.asc
+
         Page<Address> addressList = addressRepository.findAll(pageable);
 
         model.addAttribute("addressList", addressList);
@@ -475,18 +469,19 @@ public class AddressController {
         return "result_list";
     }
 
+
     @GetMapping("/m20.do")
     public String m20(Model model, Pageable pageable) {
 
-      Slice<Address> addressList = addressRepository.findAll(pageable);
+        Slice<Address> addressList = addressRepository.findAll(pageable);
 
         System.out.println(addressList.getNumber()); //0 > 현재 페이지
-        System.out.println(addressList.getNumberOfElements()); // 20 > 실제 한 화면의 데이터 개수
-        System.out.println(addressList.getSize()); // 20 > 한 화면에 최대 데이터 개수
-        System.out.println(addressList.getContent()); // true > 슬라이드에 데이터 있는지?
-        System.out.println(addressList.hasNext()); //true > 다음 슬라이드가 있는지?
-        System.out.println(addressList.hasPrevious()); //false > 이전 슬라이드가 있는지 ?
-        System.out.println(addressList.nextOrLastPageable()); // 다음 페이지 숫자 , 페이지 안의 데이터, 정렬?
+        System.out.println(addressList.getNumberOfElements()); //20 > 데이터 개수
+        System.out.println(addressList.getSize()); //20 > 데이터 개수
+        System.out.println(addressList.hasContent()); //true > 슬라이스에 데이터 있는지?
+        System.out.println(addressList.hasNext()); //true > 다음 슬라이스가 있는지?
+        System.out.println(addressList.hasPrevious()); //false > 이전 슬라이스가 있는지?
+        System.out.println(addressList.nextOrLastPageable());
         System.out.println(addressList.nextPageable());
         System.out.println(addressList.previousOrFirstPageable());
         System.out.println(addressList.previousPageable());
@@ -499,18 +494,14 @@ public class AddressController {
                     <a href="/m20.do?page=%d">이전 페이지</a>
                     """.formatted(addressList.previousOrFirstPageable().getPageNumber()));
 
-
         sb.append("""
                     <a href="/m20.do?page=%d">다음 페이지</a>
                     """.formatted(addressList.nextOrLastPageable().getPageNumber()));
 
+        model.addAttribute("addressList", addressList);
+        model.addAttribute("sb", sb.toString());
 
-
-      model.addAttribute("addressList", addressList);
-
-      model.addAttribute("sb", sb.toString());
-
-      return "result_list";
+        return "result_list";
     }
 
     @GetMapping("/m21.do")
@@ -521,13 +512,14 @@ public class AddressController {
 
         //1:1
         //tblAddress : tblInfo > Join
+
         Optional<Info> info = infoRepository.findById(1L);
 
-
-        model.addAttribute("info",info.get());
+        model.addAttribute("info", info.get());
 
         return "result_dto";
     }
+
     @GetMapping("/m22.do")
     public String m22(Model model) {
 
@@ -543,97 +535,91 @@ public class AddressController {
         return "result_list";
     }
 
+
     @GetMapping("/m23.do")
     public String m23(Model model) {
 
-        //Query DSL (Domain Specific Language)
-        // - JPQL 작성을 도와주는 동적 쿼리 빌더
-        // - JPQL 작성을 도와주는 오픈소스 라이브러리
+        //Query DSL(Domain Specific Language)
+        //- JPQL 작성을 도와주는 동적 쿼리 빌더
+        //- JPQL 작성을 도와주는 오픈소스 라이브러리
 
-        // - JPQL 대신 Query DSL 사용 목적
-        // - 동적 쿼리 용이
-        // - 문자열 > 메서드 동작
+        //JPQL 대신 Query DSL 사용 목적
+        //- 동적 쿼리 용이
+        //- 문자열 > 메서드 동작
 
         //QClass 생성
-        // - 엔티티에 대응되는 정적 클래스 > 메서드를 사용해서 해당 엔티티에 적용하는 쿼리 작성
-        // -
+        //- 엔티티에 대응되는 정적 클래스 > 메서드를 사용해서 해당 엔티티에 적용하는 쿼리 작성
 
         //Config
-        // com.test.bootjap.config > QueryDSLConfig.java
+        //- "com.test.bootjpa.config" > "QueryDSLConfig.java"
 
         //파일
-        //com.test.bootjpa.repository > CustomAddressRepository.java
-        // com.test.bootjpa/repository > CustomAddressRepositoryImpl.java
+        //- com.test.bootjpa.repository > "CustomAddressRepository.java"(I)
+        //- com.test.bootjpa.repository > "CustomAddressRepositoryImpl.java"(C)
+
 
         //전체 리스트 조회
         List<Address> addressList = customAddressRepository.findAll();
 
         model.addAttribute("addressList", addressList);
+
         return "result_list";
     }
 
     @GetMapping("/m24.do")
     public String m24(Model model) {
 
-        //단일 조회 (레코드 1개)
-        Address address = addressRepository.findAddressByName("강아지");
+        //단일 조회(레코드 1개)
+        Address address = customAddressRepository.findAddressByName("강아지");
 
         model.addAttribute("address", Address.toDTO(address));
 
-
         return "result_dto";
     }
-
 
     @GetMapping("/m25.do")
     public String m25(Model model) {
 
         //특정 컬럼 가져오기
-        // - 1개
-
+        //- 1개
         List<String> names = customAddressRepository.findName();
 
-        model.addAttribute("names",names);
+        model.addAttribute("names", names);
 
         return "result_list";
     }
 
-
     @GetMapping("/m26.do")
     public String m26(Model model) {
 
-      List<Tuple> customList =  customAddressRepository.findNameAndAge();
+        List<Tuple> customList = customAddressRepository.findNameAndAge();
 
-//      System.out.println(">>>>>>>>>>" + customList);
+        //System.out.println(">>>>>>>>>>>>>>" + customList);
 
-      for(Tuple tuple: customList){
-          System.out.println(tuple.get(0,String.class));
-          System.out.println(tuple.get(1,Integer.class));
-          System.out.println();
-      }
+        for (Tuple tuple : customList) {
+            System.out.println(tuple.get(0, String.class));
+            System.out.println(tuple.get(1, Integer.class));
+            System.out.println();
+        }
 
-      model.addAttribute("customList",customList);
+        model.addAttribute("customList", customList);
 
-
-      return "result_list";
-
+        return "result_list";
     }
 
     @GetMapping("/m27.do")
     public String m27(Model model) {
 
         //일부 컬럼 조회
-        // 1. Tuple 사용
-        // 2. DTO 사용
+        //1. Tuple 사용
+        //2. DTO 사용
 
         List<AddressDTO> addressDTOList = customAddressRepository.findNameAndAddress();
 
-        model.addAttribute("addressDTOList",addressDTOList);
+        model.addAttribute("addressDTOList", addressDTOList);
 
         return "result_list";
     }
-
-
 
     @GetMapping("/m28.do")
     public String m28(Model model) {
@@ -641,12 +627,10 @@ public class AddressController {
         //where() 절
         List<Address> addressList = customAddressRepository.findAddressByGender("m");
 
-        model.addAttribute("addressList",addressList);
+        model.addAttribute("addressList", addressList);
 
         return "result_list";
-
     }
-
 
 
     @GetMapping("/m29.do")
@@ -655,55 +639,53 @@ public class AddressController {
         //정렬
         List<Address> addressList = customAddressRepository.findAddressOrderBy();
 
-        model.addAttribute("addressList",addressList);
+        model.addAttribute("addressList", addressList);
 
         return "result_list";
     }
 
-
     @GetMapping("/m30.do")
-    public String m30(Model model,@RequestParam(defaultValue="1",name="page") Integer page) {
-
-        PageRequest pageRequest = PageRequest.of(1, 10);
+    public String m30(Model model, @RequestParam(defaultValue = "1", name = "page") Integer page) {
 
         //페이징
-        // - offset : 가져올 시작 위치(0)
-        // - limit : 가져올 개수
+        //- offset : 가져올 시작 위치(0)
+        //- limit  : 가져올 개수
 
         int offset = (page - 1) * 10;
 
         List<Address> addressList
-                = customAddressRepository.findAddressPagenation(offset,10);
+                = customAddressRepository.findAddressPagenation(offset, 10);
 
         int count = customAddressRepository.count();
 
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 1; i<=(int)Math.ceil(count / 10.0); i++){
-            sb.append(String.format("<a href='/m30.do?page=%d'>%d</a>",i,i));
+        for (int i = 1; i<= (int)Math.ceil(count / 10.0); i++) {
+
+            sb.append(String.format(" <a href='/m30.do?page=%d'>%d</a> ", i, i));
+
         }
 
-        model.addAttribute("addressList",addressList);
+
+        model.addAttribute("addressList", addressList);
         model.addAttribute("sb", sb.toString());
 
         return "result_list";
     }
 
-
     @GetMapping("/m31.do")
     public String m31(Model model) {
 
         //집계 함수
-        // - Tuple
+        //- Tuple
         Tuple addressTuple = customAddressRepository.findAddressAggregation();
 
-        model.addAttribute("addressTuple",addressTuple);
+        //addressTuple.toArray()
 
-
+        model.addAttribute("addressTuple", addressTuple);
 
         return "result_scalar";
     }
-
 
     @GetMapping("/m32.do")
     public String m32(Model model) {
@@ -711,10 +693,103 @@ public class AddressController {
         //group by, having
         List<Tuple> addressTuple = customAddressRepository.findAddressGroupByGender();
 
-        model.addAttribute("addressTuple",addressTuple);
+        model.addAttribute("addressTuple", addressTuple);
 
         return "result_list";
     }
+
+    @GetMapping("/m33.do")
+    public String m33(Model model) {
+
+        //Join
+        //- 1:1
+        //- tblAddress:tbInfo
+        List<Info> addressInfoList = customAddressRepository.findAddressJoinInfo();
+
+        model.addAttribute("addressInfoList", addressInfoList);
+
+        return "result_list";
+    }
+
+
+
+    @GetMapping("/m34.do")
+    public String m34(Model model) {
+
+        //Join
+        // - 1:N
+        List<Address> joinList = customAddressRepository.findAddressJoinMemo();
+
+        model.addAttribute("joinList", joinList);
+
+        return "result_list";
+    }
+
+
+    @GetMapping("/m35.do")
+    public String m35(Model model) {
+
+        //tblMemo:tblAddress:tblInfo
+        List<Info> addressFullList = customAddressRepository.findAddressFullJoin();
+
+        model.addAttribute("addressFullList", addressFullList);
+
+
+        return "result_list";
+    }
+
+
+
+    @GetMapping("/m36.do")
+    public String m36(Model model) {
+
+        // 서브 쿼리
+        // - where 절 (O)
+        // - select 절(O)
+        // - from 절 (X)
+
+
+        // select * from tblAddress where age = (select max(age) from tblAddress);
+
+        List<Address> addressList = customAddressRepository.findAddressByMaxAge();
+
+        model.addAttribute("addressList", addressList);
+        return "result_list";
+    }
+
+
+
+    @GetMapping("/m37.do")
+    public String m37(Model model) {
+
+        //select name, age, 평균나이, from tblAddress
+
+        List<Tuple> addressAgeList = customAddressRepository.findAddressByAvgAge();
+
+        model.addAttribute("addressAgeList", addressAgeList);
+
+        return "result_list";
+    }
+
+
+    @GetMapping("/m38.do")
+    public String m38(Model model,@RequestParam(name="gender",required= false)String gender,@RequestParam(name="age",required = false)Integer age) {
+
+
+        //동적 쿼리
+        // - m38.do > select * from tblAddress
+        // - m38.do?gender=m > select * from tblAddress where gender = 'm'
+        // - m38.do?age=3 > select * from tblAddress where age = 3
+        // - m38.do?gender=m&age=3 > select * from tblAddress where gender = 'm' and age = 3
+
+        List<Address> addressList = customAddressRepository.findAddressByMultiParameter(gender,age);
+
+        model.addAttribute("addressList", addressList);
+
+
+        return "result_list";
+    }
+
 
     /*
     @GetMapping("/m05.do")

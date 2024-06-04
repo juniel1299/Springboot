@@ -16,7 +16,7 @@ public class Memo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "memo_seq_generator")
-    @SequenceGenerator(name="memo_seq_generator",sequenceName="seqMemo", allocationSize = 1)
+    @SequenceGenerator(name = "memo_seq_generator", sequenceName = "seqMemo", allocationSize = 1)
     private Long seq;
 
     private String memo;
@@ -24,3 +24,15 @@ public class Memo {
     private Long aseq;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

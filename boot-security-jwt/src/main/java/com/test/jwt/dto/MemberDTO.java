@@ -1,4 +1,4 @@
-package com.test.bootsecurity.dto;
+package com.test.jwt.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +12,4 @@ public class MemberDTO {
     private String username;
     private String password;
     private String role;
-
 }
-
-
-
-
-
-
-
-
-

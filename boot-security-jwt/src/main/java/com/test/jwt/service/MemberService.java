@@ -1,8 +1,8 @@
-package com.test.bootsecurity.service;
+package com.test.jwt.service;
 
-import com.test.bootsecurity.dto.MemberDTO;
-import com.test.bootsecurity.entity.Member;
-import com.test.bootsecurity.repository.MemberRepository;
+import com.test.jwt.dto.MemberDTO;
+import com.test.jwt.entity.Member;
+import com.test.jwt.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,40 +15,13 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
+
     public void join(MemberDTO memberDTO) {
 
-        //아이디 중복검사
-        boolean result = memberRepository.existsByUsername(memberDTO.getUsername());
-        if (result) {
-            return;
-        }
-
-
-        //DTO > Entity
         Member member = Member.builder()
                 .username(memberDTO.getUsername())
                 .password(bCryptPasswordEncoder.encode(memberDTO.getPassword()))
                 .role(memberDTO.getRole())
                 .build();
-
-        memberRepository.save(member);
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

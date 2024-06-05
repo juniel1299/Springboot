@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,7 +11,10 @@
     <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
 </head>
 <body>
-    <h1>Security <small>Login</small></h1>
+
+    <div th:replace="~{inc/header :: menu}"></div>
+    <h2>Login</h2>
+
     <form method="POST" action="/loginok">
         <table>
             <tr>
@@ -24,6 +29,9 @@
         <div>
             <button>로그인</button>
         </div>
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
     </form>
 </body>
 </html>

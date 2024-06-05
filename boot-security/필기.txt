@@ -112,5 +112,15 @@ BCrypt 암호화 > PasswordEncoder 생성
 
 DB 기반 로그인
 - 시큐리티 > 데이터베이스 접근 + 인증 > 세션 발급
-- com.test.bootsecurity.service > CustomUserDetailsService.java
-- com.test.bootsecurity.dto > CustomUserDetails.java
+- com.test.bootsecurity.service > "CustomUserDetailsService.java"
+- com.test.bootsecurity.dto > "CustomUserDetails.java"
+
+
+
+
+
+
+
+
+
+

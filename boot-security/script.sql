@@ -11,7 +11,7 @@ create sequence seqMember;
 
 select * from member;
 
+delete from member;
 
 commit;
 
-select * from member;

@@ -1,15 +1,15 @@
-package com.test.jwt.controller;
+package com.test.bootoauth2.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class MainController {
+
 
     @GetMapping(value="/")
     public String index() {
 
-        return "MainController";
+        return "index";
     }
-
 }

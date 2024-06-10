@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AdminController {
+
     @GetMapping(value="/admin")
-    public String index() {
+    public String admin() {
 
         return "AdminController";
     }
+
 }

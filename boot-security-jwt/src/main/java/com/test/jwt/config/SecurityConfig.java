@@ -1,5 +1,7 @@
 package com.test.jwt.config;
 
+import com.test.jwt.auth.JWTFilter;
+import com.test.jwt.auth.JWTUtil;
 import com.test.jwt.auth.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,51 +21,71 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JWTUtil jwtUtil;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         //CSRF Disable
-        // - 이 공격 방식은 세션 인증 방식에만 유효하다
-        // - JWT에선 이 공격이 안 먹힘 -> CSRF 위험성 거의 없음.
+        //- 이 공격 방식은 세션 인증 방식에만 유효하다.
+        //- JWT 방식에는 CSRF의 위험성이 거의 없다.
         http.csrf(auth -> auth.disable());
 
-        //form 인증 방식 사용 안 함
+        //Form 인증 방식 사용 안함
         http.formLogin(auth -> auth.disable());
 
-        //http basic 인증 방식 안 함
+        //http basic 인증 방식 안함
         http.httpBasic(auth -> auth.disable());
 
         //세션 설정
-        // - 기존의 세션 인증 방식을 사용하지 않겠다.
+        //- 기존의 세션 인증 방식을 사용하지 않겠다. > JWT 사용
         http.sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+
         //URI 허가
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/","login","joinok").permitAll()
-                .requestMatchers("/my").hasAnyRole("MEMBER","ADMIN")
+                .requestMatchers("/", "/login", "joinok").permitAll()
+                .requestMatchers("/my").hasAnyRole("MEMBER", "ADMIN")
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
         );
 
-        //LoginFilter 등록
-        //http.addFilterAt(new LoginFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)),UsernamePasswordAuthenticationFilter.class);
 
+
+        //LoginFilter 등록
+        //http.addFilter(new LoginFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);
+
+        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class);
+
+        //JWT 필터 등록
+        http.addFilterBefore(new JWTFilter(jwtUtil),LoginFilter.class);
 
         return http.build();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
 
         return configuration.getAuthenticationManager();
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+

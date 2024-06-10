@@ -5,6 +5,7 @@ import com.test.jwt.entity.Member;
 import com.test.jwt.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,8 +15,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-
     public void join(MemberDTO memberDTO) {
 
         Member member = Member.builder()
@@ -23,5 +22,17 @@ public class MemberService {
                 .password(bCryptPasswordEncoder.encode(memberDTO.getPassword()))
                 .role(memberDTO.getRole())
                 .build();
+
+        memberRepository.save(member);
     }
 }
+
+
+
+
+
+
+
+
+
+

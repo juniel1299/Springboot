@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
+
+    <style>
+        table th:nth-child(1){width: 150px; }
+        table th:nth-child(2){width: auto; }
+        table th:nth-child(1){text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h1>Elasticsearch <small>List</small></h1>
+
+    <div class="separate">
+        <button type="button" class="add" onclick="location.href='/add';">문서 추가하기</button>
+        <button type="button" class="add" onclick="location.href='/list';">초기화</button>
+    </div>
+
+<table>
+    <tr>
+        <th>문서 아이디</th>
+        <th>메세지</th>
+        <th>스코어</th>
+    </tr>
+    <tr th:each="map : ${list}">
+        <td th:text="${map.id}"></td>
+        <td th:text="${map.message}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://pinnpublic.dothome.co.kr/cdn/example-min.css">
+</head>
+<body>
+
+<div th:replace="~{inc/header ::menu}"></div>
+
+<h2> Login </h2>
+
+<div>
+    <a href="/oauth2/authorization/naver">네이버 로그인</a>
+    <a href="/oauth2/authorization/google">구글 로그인</a>
+
+</div>
+
+</body>
+</html>

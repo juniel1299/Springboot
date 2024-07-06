@@ -1,0 +1,36 @@
+spring:
+    application:
+        name: boot-security-jwt
+
+
+    # DB 설정
+    datasource:
+        driver-class-name: oracle.jdbc.OracleDriver
+        url: jdbc:oracle:thin:@localhost:1521/xe
+        username: springboot
+        password: java1234
+
+    # JPA 설정
+    jpa:
+        database: oracle
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true #이쁘게
+
+
+    # 암호화 키
+    jwt:
+        secret: 3e57d2d0ee85ed62e140aaadb8b7665bf015faa79ebfcf43370401fcf11a41a6
+
+
+
+
+
+server:
+    port: 8090
